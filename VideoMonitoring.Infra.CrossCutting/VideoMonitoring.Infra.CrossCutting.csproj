@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VideoMonitoring.Domain\VideoMonitoring.Domain.csproj" />
+    <ProjectReference Include="..\VideoMonitoring.Infra.Data\VideoMonitoring.Infra.Data.csproj" />
+    <ProjectReference Include="..\VideoMonitoring.Service\VideoMonitoring.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DependencyInjection\" />
+    <Folder Include="Mappings\" />
+  </ItemGroup>
+
+</Project>
