@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VideoMonitoring.Infra.CrossCutting.DependencyInjection;
 
 namespace VideoMonitoring.Application
 {
@@ -17,6 +18,8 @@ namespace VideoMonitoring.Application
 
         public void ConfigureServices(IServiceCollection services)
         {
+            ConfigureRepository.ConfigureDependenciesRepository(services);
+            ConfigureService.ConfigureDependenciesServices(services);
             services.AddControllers();
         }
 
