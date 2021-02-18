@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VideoMonitoring.Domain.Entities;
+using VideoMonitoring.Infra.Data.Mappings;
 
 namespace VideoMonitoring.Infra.Data.Context
 {
@@ -13,6 +14,10 @@ namespace VideoMonitoring.Infra.Data.Context
         {
         }
 
+        public AppDbContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=localhost,1433; initial catalog=VideoMonitoring; user id=sa; password=sa12345@BD; Integrated Security=True");
@@ -21,6 +26,8 @@ namespace VideoMonitoring.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Server>(new ServerMap().Configure);
+            modelBuilder.Entity<Video>(new VideoMap().Configure);
         }
     }
 }
