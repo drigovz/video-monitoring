@@ -7,15 +7,16 @@ namespace VideoMonitoring.Domain.Entities
         public string Description { get; private set; }
         public string File { get; private set; }
         public int Size { get; private set; }
-        public int ServerId { get; set; }
+        public Guid ServerId { get; set; }
+        public Server Server { get; set; }
 
         public Video()
         {
         }
 
-        public Video(string description, string file, int size, int serverId)
+        public Video(string description, string file, int size, Guid serverId)
         {
-            Validations(description, file, size, serverId);
+            Validations(description, file, size);
 
             Description = description;
             File = file;
@@ -23,7 +24,7 @@ namespace VideoMonitoring.Domain.Entities
             ServerId = serverId;
         }
 
-        private void Validations(string description, string file, int size, int serverId)
+        private void Validations(string description, string file, int size)
         {
             if (string.IsNullOrEmpty(description))
                 throw new ArgumentException("Description is required!");
@@ -33,9 +34,6 @@ namespace VideoMonitoring.Domain.Entities
 
             if (size <= 0)
                 throw new ArgumentException("Size file not valid!");
-
-            if (serverId <= 0)
-                throw new ArgumentException("Server not valid!");
         }
     }
 }

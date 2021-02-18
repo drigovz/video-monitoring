@@ -10,7 +10,7 @@ namespace VideoMonitoring.Domain.Entities
 
         private DateTime? _createdAt;
 
-        public DateTime? MyProperty
+        public DateTime? CreatedAt
         {
             get { return _createdAt; }
             set { _createdAt = (value == null ? DateTime.UtcNow : value); }

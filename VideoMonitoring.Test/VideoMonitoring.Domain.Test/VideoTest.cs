@@ -38,16 +38,5 @@ namespace VideoMonitoring.Test.VideoMonitoring.Domain.Test
             )
             .AssertThrowsWithMessage("Size file not valid!");
         }
-
-        [Theory]
-        [InlineData(-1)]
-        [InlineData(0)]
-        public void Should_Not_Accept_Invalid_Server_Id(int invalidServers)
-        {
-            Assert.Throws<ArgumentException>(() =>
-                VideoBuilder.New().VideoWithServer(invalidServers).Build()
-            )
-            .AssertThrowsWithMessage("Server not valid!");
-        }
     }
 }

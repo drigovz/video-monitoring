@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using System;
 using VideoMonitoring.Domain.Entities;
 
 namespace VideoMonitoring.Test.Builders
@@ -10,7 +11,7 @@ namespace VideoMonitoring.Test.Builders
         public string Description = faker.Lorem.Paragraph();
         public string File = faker.Image.LoremFlickrUrl();
         public int Size = faker.Random.Int();
-        public int ServerId = faker.Random.Int();
+        public Guid ServerId = new Guid();
 
         public static VideoBuilder New()
         {
@@ -35,7 +36,7 @@ namespace VideoMonitoring.Test.Builders
             return this;
         }
 
-        public VideoBuilder VideoWithServer(int server)
+        public VideoBuilder VideoWithServer(Guid server)
         {
             ServerId = server;
             return this;
