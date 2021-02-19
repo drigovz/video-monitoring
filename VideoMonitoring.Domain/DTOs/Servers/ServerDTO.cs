@@ -11,10 +11,9 @@ namespace VideoMonitoring.Domain.DTOs.Servers
         [MinLength(2, ErrorMessage = "Name length must contain more than two characters!")]
         public string Name { get; set; }
 
-        [MinLength(1, ErrorMessage = "Port not valid!")]
         public string Ip { get; set; }
 
-        //[RegularExpression(@"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$", ErrorMessage = "IP address not valid!")]
+        [Range(0, int.MaxValue, ErrorMessage = "Port not valid!")]
         public int Port { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ namespace VideoMonitoring.Application.Controllers
     [ApiConventionType(typeof(DefaultApiConventions))]
     public class ServersController : ControllerBase
     {
-        private readonly IServerService _serverService;
+        private readonly IServerService _service;
 
         public ServersController(IServerService serverService)
         {
-            _serverService = serverService;
+            _service = serverService;
         }
 
         [HttpGet]
@@ -27,7 +28,7 @@ namespace VideoMonitoring.Application.Controllers
         {
             try
             {
-                var servers = await _serverService.GetAllServersAsync();
+                var servers = await _service.GetAllServersAsync();
                 return Ok(servers.ToList());
             }
             catch
@@ -36,7 +37,7 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("/api/server")]
         public async Task<ActionResult> AddAsync([FromBody] ServerDTO server)
         {
             try
@@ -44,12 +45,31 @@ namespace VideoMonitoring.Application.Controllers
                 if (server == null)
                     return BadRequest($"Error when try to add a new server");
 
-                var result = await _serverService.AddServerAsync(server);
+                var result = await _service.AddServerAsync(server);
                 return new ObjectResult(result);
             }
             catch (Exception ex)
             {
                 return BadRequest($"Error when try to add a new server: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult> DeleteAsync([BindRequired] Guid id)
+        {
+            try
+            {
+                var result = await _service.GetServerByIdAsync(id);
+                if (result == null)
+                    return NotFound($"Server with id {id} not found");
+
+                await _service.DeleteServerAsync(id);
+
+                return StatusCode(StatusCodes.Status200OK, "Server deleted succesfull");
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to delete server");
             }
         }
     }
