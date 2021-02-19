@@ -1,9 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VideoMonitoring.Infra.CrossCutting.DependencyInjection;
+using VideoMonitoring.Infra.CrossCutting.Mappings;
 
 namespace VideoMonitoring.Application
 {
@@ -20,6 +22,15 @@ namespace VideoMonitoring.Application
         {
             ConfigureRepository.ConfigureDependenciesRepository(services);
             ConfigureService.ConfigureDependenciesServices(services);
+
+            var config = new MapperConfiguration(x =>
+            {
+                x.AddProfile(new DtoToModelProfile());
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddControllers();
         }
 

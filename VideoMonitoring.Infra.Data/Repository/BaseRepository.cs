@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using VideoMonitoring.Domain.Entities;
 using VideoMonitoring.Domain.Interfaces;
+using VideoMonitoring.Infra.Data.Context;
 
 namespace VideoMonitoring.Infra.Data.Repository
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        protected readonly DbContext _context;
+        protected readonly AppDbContext _context;
 
-        public BaseRepository(DbContext context)
+        public BaseRepository(AppDbContext context)
         {
             _context = context;
         }
@@ -37,7 +38,7 @@ namespace VideoMonitoring.Infra.Data.Repository
         {
             try
             {
-                return await _context.Set<T>().SingleOrDefaultAsync(x => x.Id == id);
+                return await _context.Set<T>().SingleOrDefaultAsync(x => x.Id.ToString().ToLower() == id.ToString().ToLower());
             }
             catch (Exception ex)
             {

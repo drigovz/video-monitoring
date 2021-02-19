@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VideoMonitoring.Domain.Entities;
+using VideoMonitoring.Domain.DTOs.Servers;
 
 namespace VideoMonitoring.Domain.Interfaces.Services.ServerService
 {
     public interface IServerService
     {
-        Task<IEnumerable<Server>> GetAllServersAsync();
-        Task<Server> GetServerByIdAsync(Guid id);
-        Task<Server> AddServerAsync(Server entity);
-        Task<Server> UpdateServerAsync(Server entity);
+        Task<IEnumerable<ServerDTO>> GetAllServersAsync();
+        Task<ServerDTO> GetServerByIdAsync(Guid id);
+        Task<ServerDTO> AddServerAsync(ServerDTO entity);
+        Task<ServerDTO> UpdateServerAsync(ServerDTO entity);
         Task<bool> DeleteServerAsync(Guid id);
     }
 }
