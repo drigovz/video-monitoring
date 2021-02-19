@@ -37,6 +37,23 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetById([BindRequired] Guid id)
+        {
+            try
+            {
+                var server = await _service.GetServerByIdAsync(id);
+                if (server == null)
+                    return NotFound($"Server with id {id} not found");
+                else
+                    return new ObjectResult(server);
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to connect on server");
+            }
+        }
+
         [HttpPost("/api/server")]
         public async Task<ActionResult> AddAsync([FromBody] ServerDTO server)
         {
