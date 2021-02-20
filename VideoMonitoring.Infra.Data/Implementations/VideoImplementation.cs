@@ -25,5 +25,14 @@ namespace VideoMonitoring.Infra.Data.Implementations
             var videos = await _dataset.Where(x => x.ServerId.ToString().ToLower().Trim() == id.ToString().ToString().ToLower().Trim()).ToListAsync();
             return videos;
         }
+
+        public async Task<string> GetFileVideosAsync(Guid id)
+        {
+            var binaryContent = await _dataset.FirstOrDefaultAsync(x => x.Id.ToString().ToLower().Trim() == id.ToString().ToLower().Trim());
+            if (binaryContent == null)
+                return "";
+            else
+                return binaryContent.FileName.Trim();
+        }
     }
 }
