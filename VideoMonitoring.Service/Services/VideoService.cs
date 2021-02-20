@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using VideoMonitoring.Domain.DTOs.Videos;
 using VideoMonitoring.Domain.Entities;
-using VideoMonitoring.Domain.Interfaces;
+using VideoMonitoring.Domain.Interfaces.Repository;
 using VideoMonitoring.Domain.Interfaces.Services.VideoServices;
 
 namespace VideoMonitoring.Service.Services
 {
     public class VideoService : IVideoService
     {
-        private readonly IRepository<Video> _repository;
+        private readonly IVideoRepository _repository;
         private readonly IMapper _mapper;
 
-        public VideoService(IRepository<Video> repository, IMapper mapper)
+        public VideoService(IVideoRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -49,6 +49,12 @@ namespace VideoMonitoring.Service.Services
         public async Task<bool> DeleteVideoAsync(Guid id)
         {
             return await _repository.DeleteAsync(id);
+        }
+
+        public async Task<IEnumerable<VideoDTO>> GetAllServerVideosAsync(Guid id)
+        {
+            var videos = await _repository.GetAllServerVideosAsync(id);
+            return _mapper.Map<IEnumerable<VideoDTO>>(videos);
         }
     }
 }

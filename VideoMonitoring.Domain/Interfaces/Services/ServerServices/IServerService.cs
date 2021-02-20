@@ -11,6 +11,6 @@ namespace VideoMonitoring.Domain.Interfaces.Services.ServerService
         Task<ServerDTO> GetServerByIdAsync(Guid id);
         Task<ServerDTO> AddServerAsync(ServerDTO entity);
         Task<ServerDTO> UpdateServerAsync(ServerDTO entity);
-        Task<bool> DeleteServerAsync(Guid id);
+        Task<bool> DeleteServerAsync(Guid id);        
     }
 }

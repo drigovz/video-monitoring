@@ -155,5 +155,19 @@ namespace VideoMonitoring.Application.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to connect on server");
             }
         }
+
+        [HttpGet("{id:Guid}/videos")]
+        public async Task<ActionResult<IEnumerable<VideoDTO>>> GetAllVideosOfServerAsync([BindRequired] Guid id)
+        {
+            try
+            {
+                var servers = await _videoService.GetAllServerVideosAsync(id);
+                return Ok(servers.ToList());
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to connect on server");
+            }
+        }
     }
 }

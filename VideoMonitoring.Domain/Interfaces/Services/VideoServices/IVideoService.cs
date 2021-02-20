@@ -12,5 +12,6 @@ namespace VideoMonitoring.Domain.Interfaces.Services.VideoServices
         Task<VideoDTO> AddVideoAsync(VideoDTO entity);
         Task<VideoDTO> UpdateVideoAsync(VideoDTO entity);
         Task<bool> DeleteVideoAsync(Guid id);
+        Task<IEnumerable<VideoDTO>> GetAllServerVideosAsync(Guid id);
     }
 }
