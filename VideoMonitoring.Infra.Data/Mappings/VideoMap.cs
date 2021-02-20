@@ -13,6 +13,9 @@ namespace VideoMonitoring.Infra.Data.Mappings
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.File)
+                   .HasColumnType("varchar(MAX)");
+
+            builder.Property(x => x.File)
                    .IsRequired();
         }
     }

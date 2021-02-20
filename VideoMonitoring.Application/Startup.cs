@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 using VideoMonitoring.Infra.CrossCutting.DependencyInjection;
 using VideoMonitoring.Infra.CrossCutting.Mappings;
 
@@ -14,6 +15,10 @@ namespace VideoMonitoring.Application
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                  .SetBasePath(Directory.GetCurrentDirectory())
+                  .AddJsonFile("appsettings.json");
+            configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -40,6 +45,8 @@ namespace VideoMonitoring.Application
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 
