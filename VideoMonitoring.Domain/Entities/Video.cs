@@ -6,6 +6,7 @@ namespace VideoMonitoring.Domain.Entities
     {
         public string Description { get; private set; }
         public string File { get; private set; }
+        public string FileName { get; private set; }
         public int Size { get; private set; }
         public Guid ServerId { get; set; }
         public Server Server { get; set; }
@@ -14,12 +15,13 @@ namespace VideoMonitoring.Domain.Entities
         {
         }
 
-        public Video(string description, string file, int size, Guid serverId)
+        public Video(string description, string file, string fileName, int size, Guid serverId)
         {
             Validations(description, file, size);
 
             Description = description;
             File = file;
+            FileName = fileName;
             Size = size;
             ServerId = serverId;
         }

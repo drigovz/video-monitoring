@@ -121,6 +121,10 @@ namespace VideoMonitoring.Application.Controllers
                     using (var bw = new BinaryWriter(fs))
                     {
                         bw.Write(videoBytes);
+
+                        videoDto.Size = (int)bw.BaseStream.Length;
+                        videoDto.FileName = video;
+
                         bw.Close();
                     }
                 }
@@ -167,6 +171,22 @@ namespace VideoMonitoring.Application.Controllers
             catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to connect on server");
+            }
+        }
+
+        [HttpGet("{id:Guid}/videos/{videoId:Guid}/binary")]
+        public async Task<FileResult> DownloadBinaryVideoAsync([BindRequired] Guid videoId)
+        {
+            try
+            {
+                string file = await _videoService.GetFileVideosAsync(videoId);
+                string filePath = Directory.GetCurrentDirectory() + "\\videos\\" + file;
+
+                return PhysicalFile(filePath, "video/mp4", file);
+            }
+            catch
+            {
+                return null;
             }
         }
     }

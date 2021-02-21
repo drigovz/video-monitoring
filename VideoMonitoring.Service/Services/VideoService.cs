@@ -56,5 +56,10 @@ namespace VideoMonitoring.Service.Services
             var videos = await _repository.GetAllServerVideosAsync(id);
             return _mapper.Map<IEnumerable<VideoDTO>>(videos);
         }
+
+        public Task<string> GetFileVideosAsync(Guid id)
+        {
+            return _repository.GetFileVideosAsync(id);
+        }
     }
 }

@@ -12,6 +12,8 @@ namespace VideoMonitoring.Domain.DTOs.Videos
 
         public string File { get; set; }
 
+        public string FileName { get; set; }
+
         [Range(0, int.MaxValue, ErrorMessage = "Size file not valid!")]
         public int Size { get; set; }
 

@@ -10,6 +10,7 @@ namespace VideoMonitoring.Test.Builders
 
         public string Description = faker.Lorem.Paragraph();
         public string File = faker.Image.LoremFlickrUrl();
+        public string FileName = faker.Name.FirstName();
         public int Size = faker.Random.Int();
         public Guid ServerId = new Guid();
 
@@ -30,6 +31,12 @@ namespace VideoMonitoring.Test.Builders
             return this;
         }
 
+        public VideoBuilder VideoWithFileName(string fileName)
+        {
+            FileName = fileName;
+            return this;
+        }
+
         public VideoBuilder VideoWithSize(int size)
         {
             Size = size;
@@ -44,7 +51,7 @@ namespace VideoMonitoring.Test.Builders
 
         public Video Build()
         {
-            return new Video(Description, File, Size, ServerId);
+            return new Video(Description, File, FileName, Size, ServerId);
         }
     }
 }

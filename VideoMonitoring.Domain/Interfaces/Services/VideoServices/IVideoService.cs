@@ -13,5 +13,6 @@ namespace VideoMonitoring.Domain.Interfaces.Services.VideoServices
         Task<VideoDTO> UpdateVideoAsync(VideoDTO entity);
         Task<bool> DeleteVideoAsync(Guid id);
         Task<IEnumerable<VideoDTO>> GetAllServerVideosAsync(Guid id);
+        Task<string> GetFileVideosAsync(Guid id);
     }
 }
