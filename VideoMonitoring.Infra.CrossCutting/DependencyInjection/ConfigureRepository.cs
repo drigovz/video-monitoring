@@ -16,7 +16,7 @@ namespace VideoMonitoring.Infra.CrossCutting.DependencyInjection
             services.AddScoped<IVideoRepository, VideoImplementation>();
 
             services.AddDbContext<AppDbContext>(
-                options => options.UseSqlServer("Data Source=localhost,1433; initial catalog=VideoMonitoring; user id=sa; password=sa12345@BD;")
+                options => options.UseSqlServer("Data Source=[YOUR_SERVER]; initial catalog=VideoMonitoring; user id=[YOUR_DB_USER]; password=[YOUR_PASSWORD];")
             );
         }
     }

@@ -20,7 +20,7 @@ namespace VideoMonitoring.Infra.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost,1433; initial catalog=VideoMonitoring; user id=sa; password=sa12345@BD;");
+            optionsBuilder.UseSqlServer("Data Source=[YOUR_SERVER]; initial catalog=VideoMonitoring; user id=[YOUR_DB_USER]; password=[YOUR_PASSWORD];");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
