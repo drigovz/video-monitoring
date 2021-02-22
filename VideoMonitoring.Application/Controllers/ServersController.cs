@@ -235,7 +235,7 @@ namespace VideoMonitoring.Application.Controllers
         /// </summary>
         /// <param name="videoId">ID do vídeo</param>
         /// <returns>Mensagem de exclusão de vídeo bem sucedida</returns>
-        [HttpPost("{id:Guid}/videos/{videoId:Guid}")]
+        [HttpDelete("{id:Guid}/videos/{videoId:Guid}")]
         public async Task<ActionResult> DeleteVideoAsync([BindRequired] Guid videoId)
         {
             try
