@@ -189,5 +189,32 @@ namespace VideoMonitoring.Application.Controllers
                 return null;
             }
         }
+
+        [HttpPost("{id:Guid}/videos/{videoId:Guid}")]
+        public async Task<ActionResult> DeleteVideoAsync([BindRequired] Guid videoId)
+        {
+            try
+            {
+                var result = await _videoService.GetVideoByIdAsync(videoId);
+                if (result == null)
+                    return NotFound($"Video with id {videoId} not found");
+
+                string fileName = result.FileName;
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    var fileToDelete = Path.Combine(Directory.GetCurrentDirectory() + "\\videos\\" + fileName);
+                    if (System.IO.File.Exists(fileToDelete))
+                        System.IO.File.Delete(fileToDelete);
+                }
+
+                await _videoService.DeleteVideoAsync(videoId);
+
+                return StatusCode(StatusCodes.Status200OK, "Video deleted succesfull");
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error when try to delete video");
+            }
+        }
     }
 }
