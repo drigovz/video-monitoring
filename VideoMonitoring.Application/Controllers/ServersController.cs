@@ -31,6 +31,10 @@ namespace VideoMonitoring.Application.Controllers
             _environment = environment;
         }
 
+        /// <summary>
+        /// Buscar todos os servidores cadastrados
+        /// </summary>
+        /// <returns>Retorna uma lista com todos os servidores cadastrados no banco de dados</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServerDTO>>> GetAsync()
         {
@@ -45,6 +49,11 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Buscar informações de um servidor
+        /// </summary>
+        /// <param name="id">ID do servidor</param>
+        /// <returns>Retorna um objeto com informações do servidor</returns>
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetById([BindRequired] Guid id)
         {
@@ -62,6 +71,11 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Insere um novo servidor na base de dados.
+        /// </summary>
+        /// <param name="server">Dados do servidor a ser inserido</param>
+        /// <returns>Retorna informações do novo servidor inserido</returns>
         [HttpPost("/api/server")]
         public async Task<ActionResult> AddAsync([FromBody] ServerDTO server)
         {
@@ -79,6 +93,11 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Exclui um servidor cadastrado
+        /// </summary>
+        /// <param name="id">ID do servidor a ser excluído</param>
+        /// <returns>Mensagem de exclusão bem sucedida</returns>
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> DeleteAsync([BindRequired] Guid id)
         {
@@ -98,6 +117,12 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Adiciona um vídeo a um servidor
+        /// </summary>
+        /// <param name="videoDto">vídeo a ser inserido no servidor</param>
+        /// <param name="id">ID do servidor</param>
+        /// <returns>Mensagem de inclusão de vídeo bem sucedida</returns>
         [HttpPost("{id:Guid}/videos")]
         public async Task<ActionResult> AddVideoAsync([FromBody] VideoDTO videoDto, [BindRequired] Guid id)
         {
@@ -143,6 +168,11 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Recuperar detalhes de um vídeo
+        /// </summary>
+        /// <param name="videoId">ID do vídeo</param>
+        /// <returns>Objeto contendo informações do vídeo</returns>
         [HttpGet("{id:Guid}/videos/{videoId:Guid}")]
         public async Task<IActionResult> GetVideoById([BindRequired] Guid videoId)
         {
@@ -160,6 +190,11 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Lista de todos os vídeos de um servidor
+        /// </summary>
+        /// <param name="id">ID do servidor</param>
+        /// <returns>Lista com todos os vídeos de um servidor</returns>
         [HttpGet("{id:Guid}/videos")]
         public async Task<ActionResult<IEnumerable<VideoDTO>>> GetAllVideosOfServerAsync([BindRequired] Guid id)
         {
@@ -174,6 +209,11 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Download do conteúdo binário de um vídeo
+        /// </summary>
+        /// <param name="videoId">ID do vídeo</param>
+        /// <returns>Arquivo físico para download do vídeo</returns>
         [HttpGet("{id:Guid}/videos/{videoId:Guid}/binary")]
         public async Task<FileResult> DownloadBinaryVideoAsync([BindRequired] Guid videoId)
         {
@@ -190,6 +230,11 @@ namespace VideoMonitoring.Application.Controllers
             }
         }
 
+        /// <summary>
+        /// Excluir um vídeo
+        /// </summary>
+        /// <param name="videoId">ID do vídeo</param>
+        /// <returns>Mensagem de exclusão de vídeo bem sucedida</returns>
         [HttpPost("{id:Guid}/videos/{videoId:Guid}")]
         public async Task<ActionResult> DeleteVideoAsync([BindRequired] Guid videoId)
         {
